@@ -29,7 +29,22 @@ $.ajax({
             console.log(data)
             data.forEach(element => {
                 postsBox.innerHTML += `
-                ${element.title} - <b>${element.body}</b><br>
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h5 class="card-title">${element.title}</h5>
+                        <p class="card-text">${element.body}</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-1">
+                                <a href="#" class="btn btn-primary">Details</a>
+                            </div>
+                            <div class="col-1">
+                                <a href="#" class="btn btn-primary">Like</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             `
             });
         }, 100);
