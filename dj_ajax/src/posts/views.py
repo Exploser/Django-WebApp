@@ -27,6 +27,16 @@ def post_list_and_create(request):
         form = PostForm()
     return render(request, 'posts/main.html', {'form': form})
 
+def post_detail(request, pk):
+    obj = get_object_or_404(Posts, pk=pk)
+    form = PostForm()
+
+    context = {
+        'obj': obj,
+        'form': form,
+    }
+
+    return render(request, 'posts/detail.html', context)
 
 def load_post_data_view(request, num_posts):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
