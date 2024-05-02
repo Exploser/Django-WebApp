@@ -50,7 +50,7 @@ INSTALLED_APPS = [
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_URL = '/admin/'
+LOGIN_URL = '/profiles/login'
 
 MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
