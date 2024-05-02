@@ -12,7 +12,6 @@ const alertBox = document.getElementById('alert-box')
 
 const url = window.location.href
 
-
 const getCookie =(name) => {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -153,7 +152,6 @@ postForm.addEventListener('submit', e=>{
             postForm.reset()
         },
         error: function(error){
-            console.log("HELP")
             console.log(error)
             handleAlerts('danger', "Opps.... Something went wrong.")
         }

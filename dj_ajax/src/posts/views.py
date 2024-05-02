@@ -106,6 +106,4 @@ def delete_post(request, pk):
     obj = Posts.objects.get(pk = pk)
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         obj.delete()
-    return JsonResponse({
-
-    })
+    return JsonResponse({})
