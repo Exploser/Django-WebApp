@@ -5,6 +5,7 @@ from .forms import PostForm
 from profiles.models import Profile
 from posts.models import Photo
 from django.shortcuts import get_object_or_404
+from .utils import action_permission
 
 # Create your views here.
 
@@ -103,11 +104,13 @@ def update_post(request, pk):
         'body': new_body,
     })
 
+@action_permission
 def delete_post(request, pk):
     obj = Posts.objects.get(pk = pk)
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         obj.delete()
         return JsonResponse({})
+    return JsonResponse({'msg' : 'Your are not authorized to do that'})
 
 def image_upload_view(request):
     if request.method == 'POST':
