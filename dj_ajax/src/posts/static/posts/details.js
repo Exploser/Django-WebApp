@@ -4,6 +4,8 @@ const backBtn = document.getElementById("back-btn")
 const deleteBtn = document.getElementById("delete-btn")
 const updateBtn = document.getElementById("update-btn")
 
+console.log(window.location)
+
 const url = window.location.href + "data/"
 const updateUrl = window.location.href + "update/"
 const deleteUrl = window.location.href + "delete/"
@@ -83,4 +85,25 @@ updateForm.addEventListener('submit', e=>{
             console.log(error)
         }
     })
+})
+
+deleteForm.addEventListener('submit', e=>{
+    e.preventDefault()
+
+    $.ajax({
+        type: 'POST',
+        url: deleteUrl,
+        data: {
+            'csrfmiddlewaretoken':csrf[0].value,
+        },
+        success: function(response){
+            console.log("HELP")
+            window.location.href = window.location.origin
+            localStorage.setItem('title', titleInput.value)
+        },
+        error: function(error){
+            console.log(error)
+        }
+    })
+
 })

@@ -11,6 +11,7 @@ const csrf = document.getElementsByName('csrfmiddlewaretoken')
 const alertBox = document.getElementById('alert-box')
 
 const url = window.location.href
+console.log(window.location)
 
 const getCookie =(name) => {
     let cookieValue = null;
@@ -30,6 +31,12 @@ const getCookie =(name) => {
 }
 
 const csrftoken = getCookie('csrftoken');
+
+const deleted = localStorage.getItem('title')
+if (deleted){
+    handleAlerts('danger',`Deleted "${deleted}"`)
+    localStorage.clear()
+}
 
 let visible = 3
 
@@ -157,5 +164,6 @@ postForm.addEventListener('submit', e=>{
         }
 
     })
+getData()
 })
 getData()
