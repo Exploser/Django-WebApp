@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from .models import Posts
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .forms import PostForm
 from profiles.models import Profile
+from posts.models import Photo
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
@@ -106,4 +107,12 @@ def delete_post(request, pk):
     obj = Posts.objects.get(pk = pk)
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         obj.delete()
-    return JsonResponse({})
+        return JsonResponse({})
+
+def image_upload_view(request):
+    if request.method == 'POST':
+        img = request.FILES.get('file')
+        new_post_id = request.POST.get('new_post_id')
+        post = Posts.objects.get(id=new_post_id)
+        Photo.objects.create(image=img, post=post)
+    return HttpResponse()
