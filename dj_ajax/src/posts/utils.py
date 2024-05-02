@@ -1,6 +1,7 @@
 from .models import Posts
 from profiles.models import Profile
 from django.http import HttpResponse
+from django.shortcuts import redirect
 
 def action_permission(func):
     def wrapper(request, **kwargs):
@@ -10,6 +11,6 @@ def action_permission(func):
         if profile.user == post.author.user:
             return func(request, **kwargs)
         else:
-            return HttpResponse('Access Denied - You are not authorized to do that!')
+            return redirect('post:main-board')
     
     return wrapper

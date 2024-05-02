@@ -6,9 +6,10 @@ from profiles.models import Profile
 from posts.models import Photo
 from django.shortcuts import get_object_or_404
 from .utils import action_permission
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 
 # Create your views here.
-
 def post_list_and_create(request):
     if request.method == 'POST':
         form = PostForm(request.POST or None)
@@ -28,6 +29,7 @@ def post_list_and_create(request):
     else:
         form = PostForm()
     return render(request, 'posts/main.html', {'form': form})
+
 
 def post_detail(request, pk):
     obj = get_object_or_404(Posts, pk=pk)
@@ -59,6 +61,8 @@ def load_post_data_view(request, num_posts):
             }
             data.append(item)
         return JsonResponse({'data':data[lower:upper], 'size': size})
+    else:
+        return redirect('post:main-board')
     
 def post_detail_data_view(request, pk):
     obj = Posts.objects.get(pk=pk)
@@ -90,7 +94,11 @@ def like_unlike_post(request):
                 return JsonResponse({'error': 'User not authenticated'})
         else:
             return JsonResponse({'error': 'Invalid request method'})
+    else:
+        return redirect('post:main-board')
 
+@action_permission
+@login_required
 def update_post(request, pk):
     obj = Posts.objects.get(pk = pk)
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -99,12 +107,15 @@ def update_post(request, pk):
         obj.title = new_title
         obj.body = new_body
         obj.save()
-    return JsonResponse ({
-        'title': new_title,
-        'body': new_body,
-    })
+        return JsonResponse ({
+            'title': new_title,
+            'body': new_body,
+        })
+    return redirect('post:main-board')
+    
 
 @action_permission
+@login_required
 def delete_post(request, pk):
     obj = Posts.objects.get(pk = pk)
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -118,4 +129,6 @@ def image_upload_view(request):
         new_post_id = request.POST.get('new_post_id')
         post = Posts.objects.get(id=new_post_id)
         Photo.objects.create(image=img, post=post)
-    return HttpResponse()
+        return HttpResponse()
+    else:
+        return redirect('post:main-board')
