@@ -11,3 +11,13 @@
 .dz:hover {
     background-color: aliceblue !important;
 }
+.d-block {
+    height: 500px;
+}
+img {
+    object-fit: contain;
+}
+
+.posts-box #title{
+    text-align: center;
+}

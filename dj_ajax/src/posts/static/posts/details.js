@@ -39,10 +39,11 @@ $.ajax({
 
         const titleEl = document.createElement('h3')
         titleEl.setAttribute('class', 'mt-3')
+        titleEl.setAttribute('class', 'text-center')
         titleEl.setAttribute('id', 'title')
 
         const bodyEl = document.createElement('h3')
-        bodyEl.setAttribute('class', 'mt-1')
+        bodyEl.setAttribute('class', 'm-5')
         bodyEl.setAttribute('id', 'body')
 
         titleEl.textContent = data.title
