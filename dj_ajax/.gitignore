@@ -1,3 +1,5 @@
 # created by virtualenv automatically
 lib/*
 local/*
+src/media/photos/*
+src/db.sqlite3
